@@ -1,0 +1,33 @@
+language: python
+
+python:
+   - "3.4"
+
+services:
+    - mysql
+
+sudo: false
+
+# before_install:
+#     - sudo apt-get update
+
+install:
+    - pip install --upgrade pip
+    - pip --version
+    - pip install -r requirements.txt
+    - pip install Flask
+    - pip install Flask-SQLAlchemy
+
+
+before_script:
+    - uname -a
+    - printenv
+    - pip list
+    - coverage --version
+    - mysql -e 'create database IF NOT EXISTs swe'
+	- mysql -e 'create database IF NOT EXISTS swe_test'
+
+script:
+    - date
+    - make clean test
+    - cat tests.tmp
